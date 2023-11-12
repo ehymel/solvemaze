@@ -97,4 +97,30 @@ class Node {
             neighbor.walls[0] = false;
         }
     }
+
+    addNeighbors(grid) {
+        if (this.blocked) {
+            return;
+        }
+
+        let i = this.i;
+        let j = this.j;
+
+        if (i > 0) {
+            this.neighbors.push(grid[i - 1][j]);
+        }
+        if (i < cols - 1) {
+            this.neighbors.push(grid[i + 1][j]);
+        }
+        if (j > 0) {
+            this.neighbors.push(grid[i][j - 1]);
+        }
+        if (j < rows - 1) {
+            this.neighbors.push(grid[i][j + 1]);
+        }
+    }
+
+    setHeuristic(goalNode) {
+        this.h = dist(this.i, this.j, goalNode.i, goalNode.j);
+    }
 }
