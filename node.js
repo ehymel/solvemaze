@@ -12,7 +12,7 @@ class Node {
         this.wallStrokeWeight = 2
     }
 
-    show() {
+    show(color) {
         if (!this.visited) {
             return;
         }
@@ -37,8 +37,7 @@ class Node {
         }
 
         noStroke();
-        fill(255, 0, 255, 80);
-        fill(255);
+        fill(color);
         rect(this.i * w + this.wallStrokeWeight /2, this.j * h + this.wallStrokeWeight/2, w - this.wallStrokeWeight, h - this.wallStrokeWeight);
     }
 
