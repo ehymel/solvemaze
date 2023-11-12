@@ -2,9 +2,15 @@ class Node {
     constructor(i, j) {
         this.i = i;
         this.j = j;
+        this.f = 999999999;
+        this.g = 999999999;
+        this.h = undefined;
+        this.neighbors = [];
+        this.cameFrom = undefined;
         this.walls = [true, true, true, true];  // top, right, bottom, left
         this.visited = false;
-        this.wallStrokeWeight = 2    }
+        this.wallStrokeWeight = 2
+    }
 
     show() {
         if (!this.visited) {
