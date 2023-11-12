@@ -1,9 +1,9 @@
 let cols = 30;
 let rows = 30;
 let grid = [];
-let current;
-let maze;
+let start, end;
 let w, h;
+let maze;
 
 function setup() {
     createCanvas(400, 400);
@@ -23,12 +23,17 @@ function setup() {
         }
     }
 
-    current = grid[0][0];
-    maze = new Maze(current);
+    // set start and end nodes
+    start = grid[0][0];
+    end = grid[cols - 1][rows - 1];
+
+    maze = new Maze(start);
 }
 
 function draw() {
     background(255);
+
+    markStartEnd();
 
     for (let i = 0; i < cols; i++) {
         for (let j = 0; j < rows; j++) {
@@ -36,7 +41,13 @@ function draw() {
         }
     }
 
-    maze.generate();
-    maze.current.highlight();
+    if (!maze.complete) {
+        maze.generate();
+        maze.current.highlight();
+    }
 }
 
+function markStartEnd() {
+    start.walls[3] = false;
+    end.walls[1] = false;
+}

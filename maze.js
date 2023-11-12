@@ -1,7 +1,8 @@
 class Maze {
     constructor(current) {
         this.current = current;
-        this.stack = []
+        this.stack = [];
+        this.complete = false;
     }
 
     generate() {
@@ -15,6 +16,8 @@ class Maze {
             this.current = next;
         } else if (this.stack.length > 0) {
             this.current = this.stack.pop();
+        } else {
+            this.complete = true;
         }
     }
 }

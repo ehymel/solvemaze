@@ -4,7 +4,7 @@ class Node {
         this.j = j;
         this.walls = [true, true, true, true];  // top, right, bottom, left
         this.visited = false;
-    }
+        this.wallStrokeWeight = 2    }
 
     show() {
         if (!this.visited) {
@@ -15,7 +15,7 @@ class Node {
         let j = this.j * h;
         let offset = 0;
         stroke(0);
-        strokeWeight(1);
+        strokeWeight(this.wallStrokeWeight);
 
         if (this.walls[0]) {
             line(i + offset   , j + offset,     i + w - offset, j + offset);
@@ -32,13 +32,14 @@ class Node {
 
         noStroke();
         fill(255, 0, 255, 80);
-        rect(this.i * w, this.j * h, w, h);
+        fill(255);
+        rect(this.i * w + this.wallStrokeWeight /2, this.j * h + this.wallStrokeWeight/2, w - this.wallStrokeWeight, h - this.wallStrokeWeight);
     }
 
     highlight() {
         noStroke();
         fill(0, 255, 0, 80);
-        rect(this.i * w, this.j * h, w, h);
+        rect(this.i * w + this.wallStrokeWeight /2, this.j * h + this.wallStrokeWeight/2, w - this.wallStrokeWeight, h - this.wallStrokeWeight);
     }
 
     getUnvisitedNeighbor() {
