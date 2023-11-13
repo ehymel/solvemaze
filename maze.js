@@ -1,6 +1,6 @@
 class Maze {
-    constructor(current) {
-        this.current = current;
+    constructor(startNode) {
+        this.current = startNode;
         this.stack = [];
         this.complete = false;
     }
