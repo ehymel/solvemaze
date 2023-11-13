@@ -1,9 +1,9 @@
-let cols = 5;
-let rows = 5;
+let cols = 80;
+let rows = 50;
 let grid = [];
 let start, end;
 let w, h;
-let maze;
+let maze, astar;
 
 function setup() {
     createCanvas(400, 400);
@@ -27,11 +27,18 @@ function setup() {
     start = grid[0][0];
     end = grid[cols - 1][rows - 1];
 
-    maze = new Maze(start);
+    // set heuristic for each node on grid
+    for (let i = 0; i < cols; i++) {
+        for (let j = 0; j < rows; j++) {
+            grid[i][j].addNeighbors(grid);
+            grid[i][j].setHeuristic(end);
+        }
+    }
 
     start.g = 0;
     start.f = start.h;
 
+    maze = new Maze(start);
     astar = new Astar(start, end);
 
     // startSearchButton = createButton('Start search');
@@ -63,16 +70,16 @@ function draw() {
         end.show(color(255, 0, 0));
 
         astar.findPath(start, end);
-        //
-        // noFill();
-        // stroke('orange');
-        // strokeWeight(h/3);
-        // beginShape();
-        // for (let i = 0; i < astar.totalPath.length; i++) {
-        //     let path = astar.totalPath[i];
-        //     vertex(path.i * w + w/2, path.j * h + h/2);
-        // }
-        // endShape();
+
+        noFill();
+        stroke('orange');
+        strokeWeight(h/3);
+        beginShape();
+        for (let i = 0; i < astar.totalPath.length; i++) {
+            let path = astar.totalPath[i];
+            vertex(path.i * w + w/2, path.j * h + h/2);
+        }
+        endShape();
     }
 }
 

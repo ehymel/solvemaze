@@ -10,8 +10,6 @@ class Astar {
         if (this.openSet.length === 0 && !this.closedSet.includes(start)) {
             this.openSet.push(start);
         }
-        let diagonalDistance = sqrt(2);
-        let d;
 
         if (this.openSet.length > 0) {
             this.lastGoodPath = this.totalPath;
@@ -33,12 +31,11 @@ class Astar {
 
                 for (let i = 0; i < current.neighbors.length; i++) {
                     let neighbor = current.neighbors[i];
-                    if (this.closedSet.includes(neighbor) || neighbor.blocked) {
+                    if (this.closedSet.includes(neighbor) || this.pathBlocked(current, neighbor)) {
                         continue;
                     }
 
-                    d = (current.i === neighbor.i || current.j === neighbor.j) ? 1 : diagonalDistance;
-                    let tempG = current.g + d; // assumes distance from one node to the next is 1
+                    let tempG = current.g + 1; // assumes distance from one node to the next is 1
 
                     if (tempG < neighbor.g) {
                         neighbor.g = tempG;
@@ -73,6 +70,25 @@ class Astar {
             if (el === arr[i]) {
                 arr.splice(i, 1);
             }
+        }
+    }
+
+    pathBlocked(node1, node2) {
+        let x = node1.i - node2.i;
+        let y = node1.j - node2.j;
+
+        if (x === 1) {
+            // neighbor is to the left
+            return node1.walls[3];
+        } else if (x === -1) {
+            // neighbor is to the right
+            return node1.walls[1];
+        } else if (y === 1) {
+            // neighbor is to the top
+            return node1.walls[0];
+        } else if (y === -1) {
+            // neighbor is to the bottom
+            return node1.walls[2];
         }
     }
 }
