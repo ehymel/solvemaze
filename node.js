@@ -9,7 +9,7 @@ class Node {
         this.cameFrom = undefined;
         this.walls = [true, true, true, true];  // top, right, bottom, left
         this.visited = false;
-        this.wallStrokeWeight = 2
+        this.wallStrokeWeight = 1;
     }
 
     show(color) {
