@@ -1,5 +1,5 @@
-let cols = 40;
-let rows = 40;
+let cols = 120;
+let rows = 80;
 let grid = [];
 let start, end;
 let w, h;
@@ -7,7 +7,7 @@ let maze, astar;
 let search = false;
 
 function setup() {
-    createCanvas(600, 600);
+    createCanvas(600, 400);
 
     w = width / cols;
     h = height / rows;
