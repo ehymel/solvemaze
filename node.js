@@ -41,7 +41,28 @@ class Node {
         rect(this.i * w + this.wallStrokeWeight /2, this.j * h + this.wallStrokeWeight/2, w - this.wallStrokeWeight, h - this.wallStrokeWeight);
     }
 
-    highlight(color) {
+    highlight(color, includeWall = false) {
+        if (includeWall) {
+            let i = this.i * w;
+            let j = this.j * h;
+            let offset = 0;
+            stroke(color);
+            strokeWeight(this.wallStrokeWeight);
+
+            if (!this.walls[0]) {
+                line(i + offset   , j + offset,     i + w - offset, j + offset);
+            }
+            if (!this.walls[1]) {
+                line(i + w - offset, j + offset,     i + w - offset, j + h - offset);
+            }
+            if (!this.walls[2]) {
+                line(i + w - offset, j + h - offset, i + offset   , j + h - offset);
+            }
+            if (!this.walls[3]) {
+                line(i + offset   , j + h - offset, i + offset   , j + offset);
+            }
+        }
+
         noStroke();
         fill(color);
         rect(this.i * w + this.wallStrokeWeight /2, this.j * h + this.wallStrokeWeight/2, w - this.wallStrokeWeight, h - this.wallStrokeWeight);

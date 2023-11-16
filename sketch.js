@@ -80,7 +80,7 @@ function initializeSearch() {
 
 function showSearch() {
     for (let i = 0; i < astar.closedSet.length; i++) {
-        astar.closedSet[i].highlight(color(220, 220, 220, 100));
+        astar.closedSet[i].highlight(color(150, 150, 150, 100), true);
     }
 
     noFill();
