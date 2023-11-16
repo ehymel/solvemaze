@@ -43,7 +43,7 @@ function draw() {
 
     if (!maze.complete) {
         maze.generate();
-        maze.current.highlight();
+        maze.current.highlight(color(0, 255, 0, 80));
     } else {
         if (search) {
             start.show(color(0, 255, 0));
@@ -79,6 +79,10 @@ function initializeSearch() {
 }
 
 function showSearch() {
+    for (let i = 0; i < astar.closedSet.length; i++) {
+        astar.closedSet[i].highlight(color(220, 220, 220, 100));
+    }
+
     noFill();
     stroke('orange');
     strokeWeight(h/3);

@@ -41,9 +41,9 @@ class Node {
         rect(this.i * w + this.wallStrokeWeight /2, this.j * h + this.wallStrokeWeight/2, w - this.wallStrokeWeight, h - this.wallStrokeWeight);
     }
 
-    highlight() {
+    highlight(color) {
         noStroke();
-        fill(0, 255, 0, 80);
+        fill(color);
         rect(this.i * w + this.wallStrokeWeight /2, this.j * h + this.wallStrokeWeight/2, w - this.wallStrokeWeight, h - this.wallStrokeWeight);
     }
 
