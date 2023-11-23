@@ -16,7 +16,7 @@ class Astar {
             this.totalPath = [];
             let indexOfLowestFScore = 0;
             for (let i = 0; i < this.openSet.length; i++) {
-                if (this.openSet[i].f < this.openSet[indexOfLowestFScore].f) {
+                if (this.openSet[i].f + this.openSet[i].h < this.openSet[indexOfLowestFScore].f + this.openSet[indexOfLowestFScore].h) {
                     indexOfLowestFScore = i;
                 }
             }
