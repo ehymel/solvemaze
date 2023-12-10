@@ -1,10 +1,12 @@
-let cols = 120;
-let rows = 80;
+let cols = 60;
+let rows = 40;
 let grid = [];
 let start, end;
 let w, h;
 let maze, astar;
 let search = false;
+let n256 = 256;
+let mult = 64;
 
 function setup() {
     createCanvas(600, 400);
@@ -46,20 +48,20 @@ function draw() {
         maze.current.highlight(color(0, 255, 0, 80));
     } else {
         if (search) {
-            start.show(color(0, 255, 0));
-            end.show(color(255, 0, 0));
-
             astar.findPath(start, end);
 
             showSearch();
+
+            start.show(color(0, 255, 0));
+            end.show(color(255, 0, 0));
         }
     }
 }
 
 function initializeSearch() {
     // set start and end nodes
-    start = grid[0][0];
-    end = grid[cols - 1][rows - 1];
+    // start = grid[0][0];
+    // end = grid[cols - 1][rows - 1];
 
     start = grid[floor(random(cols))][floor(random(rows))];
     end = grid[floor(random(cols))][floor(random(rows))];
@@ -84,14 +86,45 @@ function showSearch() {
     }
 
     noFill();
-    stroke('orange');
-    strokeWeight(h/3);
-    beginShape();
-    for (let i = 0; i < astar.totalPath.length; i++) {
-        let path = astar.totalPath[i];
-        vertex(path.i * w + w/2, path.j * h + h/2);
+    this.setMultiplier(astar.totalPath.length - 1);
+    for (let i = astar.totalPath.length - 1; i > 0; i--) {
+        astar.totalPath[i].highlight(this.getColor(i), false);
     }
-    endShape();
+
+    // beginShape();
+    // for (let i = 0; i < astar.totalPath.length; i++) {
+    //     let path = astar.totalPath[i];
+    //     vertex(path.i * w + w/2, path.j * h + h/2);
+    // }
+    // endShape();
+}
+
+function setMultiplier(len) {
+    while (floor((mult * len) / n256) > 2) {
+        mult = mult / 2;
+    }
+}
+
+function getColor(i) {
+    let red, green, blue;
+    let high = n256;
+    let highFraction = (mult * i) / high;
+
+    if (floor(highFraction) === 0) {
+        red = (mult * i) % high;
+        green = 0;
+        blue = 0;
+    } else if (floor(highFraction) === 1) {
+        red = 255;
+        green = (mult * i) % high;
+        blue = 0;
+    } else {
+        red = 255;
+        green = 255;
+        blue =  (mult * i) % high;
+    }
+
+    return color(red, green, blue);
 }
 
 function startSearch() {
