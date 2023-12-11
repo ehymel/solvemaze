@@ -111,17 +111,19 @@ function getColor(i) {
     let highFraction = (mult * i) / high;
 
     if (floor(highFraction) === 0) {
-        red = (mult * i) % high;
+        red   = (mult * i) % high;
         green = 0;
-        blue = 0;
+        blue  = 0;
     } else if (floor(highFraction) === 1) {
-        red = 255;
+        red   = 255;
         green = (mult * i) % high;
-        blue = 0;
+        blue  = 0;
     } else {
-        red = 255;
-        green = 255;
-        blue =  (mult * i) % high;
+        let partial = 256 * min(1, mult);
+        let partialColor = min(255, partial * floor((i % n256)/ partial));
+        red   = partialColor;
+        green = partialColor;
+        blue  =  (mult * i) % high;
     }
 
     return color(red, green, blue);
