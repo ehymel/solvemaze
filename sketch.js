@@ -1,12 +1,12 @@
-let cols = 60;
-let rows = 40;
+let cols = 120;
+let rows = 80;
 let grid = [];
 let start, end;
 let w, h;
 let maze, astar;
 let search = false;
 let n256 = 256;
-let mult = 64;
+let mult;
 
 function setup() {
     createCanvas(600, 400);
@@ -130,6 +130,7 @@ function getColor(i) {
 function startSearch() {
     resetNodes();
     initializeSearch();
+    mult = 128;
 
     search = true;
 }
