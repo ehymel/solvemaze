@@ -86,9 +86,10 @@ function showSearch() {
     }
 
     noFill();
-    this.setMultiplier(astar.totalPath.length - 1);
-    for (let i = astar.totalPath.length - 1; i > 0; i--) {
-        astar.totalPath[i].highlight(this.getColor(i), false);
+    let l = astar.totalPath.length;
+    this.setMultiplier(l);
+    for (let i = 0; i < l; i++) {
+        astar.totalPath[i].highlight(this.getColor(l - i), false);
     }
 
     // beginShape();
@@ -100,6 +101,7 @@ function showSearch() {
 }
 
 function setMultiplier(len) {
+    mult = 128;
     while (floor((mult * len) / n256) > 2) {
         mult = mult / 2;
     }
@@ -107,23 +109,22 @@ function setMultiplier(len) {
 
 function getColor(i) {
     let red, green, blue;
-    let high = n256;
-    let highFraction = (mult * i) / high;
+    let highFraction = (mult * i) / n256;
 
     if (floor(highFraction) === 0) {
-        red   = (mult * i) % high;
+        red   = (mult * i) % n256;
         green = 0;
         blue  = 0;
     } else if (floor(highFraction) === 1) {
         red   = 255;
-        green = (mult * i) % high;
+        green = (mult * i) % n256;
         blue  = 0;
     } else {
-        let partial = 256 * min(1, mult);
-        let partialColor = min(255, partial * floor((i % n256)/ partial));
+        let partial = n256 * min(1, mult);
+        let partialColor = 255 - partial * floor((i % n256)/ partial);
         red   = partialColor;
         green = partialColor;
-        blue  =  (mult * i) % high;
+        blue  =  (mult * i) % n256;
     }
 
     return color(red, green, blue);
@@ -132,7 +133,6 @@ function getColor(i) {
 function startSearch() {
     resetNodes();
     initializeSearch();
-    mult = 128;
 
     search = true;
 }

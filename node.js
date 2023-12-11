@@ -10,9 +10,11 @@ class Node {
         this.walls = [true, true, true, true];  // top, right, bottom, left
         this.visited = false;
         this.wallStrokeWeight = 1;
+        this.color = color(0,0,0);
     }
 
     show(color) {
+        this.color = color;
         if (!this.visited) {
             return;
         }
@@ -37,16 +39,17 @@ class Node {
         }
 
         noStroke();
-        fill(color);
+        fill(this.color);
         rect(this.i * w + this.wallStrokeWeight /2, this.j * h + this.wallStrokeWeight/2, w - this.wallStrokeWeight, h - this.wallStrokeWeight);
     }
 
     highlight(color, includeWall = false) {
+        this.color = color;
         if (includeWall) {
             let i = this.i * w;
             let j = this.j * h;
             let offset = 0;
-            stroke(color);
+            stroke(this.color);
             strokeWeight(this.wallStrokeWeight);
 
             if (!this.walls[0]) {
@@ -64,7 +67,7 @@ class Node {
         }
 
         noStroke();
-        fill(color);
+        fill(this.color);
         rect(this.i * w + this.wallStrokeWeight /2, this.j * h + this.wallStrokeWeight/2, w - this.wallStrokeWeight, h - this.wallStrokeWeight);
     }
 
